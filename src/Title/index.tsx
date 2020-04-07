@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, forwardRef, useImperativeHandle } from 'react';
 import { Label } from '@antv/g2plot';
 import { ChartProp } from '../types'
 import useTitle from './useTitle';
@@ -8,9 +8,10 @@ export interface TitleProps extends Label {
   setChartConfig?: (d: any) => void;
 }
 
-const Title: FC<TitleProps> = (props) => {
-  useTitle(props);
+const Title: FC<TitleProps> = forwardRef((props, ref) => {
+  const { title, setTitle } = useTitle(props);
+  useImperativeHandle(ref, () => ({ title, setTitle }), [title]);
   return null;
-}
+})
 
 export default Title

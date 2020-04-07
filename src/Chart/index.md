@@ -4,8 +4,8 @@
 Demo:
 
 ```tsx
-import React from 'react';
-import { G2Chart } from 'g2charts';
+import React ,{useRef,Fragment}from 'react';
+import { G2Chart,ChartProp } from 'g2charts';
 const type = 'Line';
 const data = [
   { year: '1991', value: 3 },
@@ -31,7 +31,25 @@ const configs = {
   xField: 'year',
   yField: 'value',
 }
-export default () => <G2Chart type={type} config={configs}/>;
+export default () => {
+  const chartRef = useRef<ChartProp>(null);
+  return (
+  <Fragment>
+  <button onClick={()=>{
+        chartRef.current.chart.updateConfig({title:{
+          text:'修改后的标题'
+        }})
+        chartRef.current.chart.render();
+      }}>修改配置</button>
+  <button onClick={()=>{
+        console.log(chartRef.current.chart.getData())
+      }}>获取图表数据</button>
+  <button onClick={()=>{
+        console.log(chartRef.current.chart.getPlotTheme())
+      }}>获取图表主题</button>
+  <G2Chart type={type} config={configs} ref={chartRef}/>
+  </Fragment>
+)};
 ```
 
 Hooks

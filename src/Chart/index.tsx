@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, Fragment, useState } from 'react';
+import React, { FC, useRef, useEffect, Fragment, useState, forwardRef, useImperativeHandle } from 'react';
 import useChart from './useChart';
 
 export interface G2ChartProps {
@@ -9,12 +9,12 @@ export interface G2ChartProps {
   type: string;
 }
 
-const Chart: FC<G2ChartProps> = ({ children, config, type, className, style }) => {
+const Chart: FC<G2ChartProps> = forwardRef(({ children, config, type, className, style }, ref) => {
   const elmRef = useRef<HTMLDivElement>(null);
   const [chartConfig, setChartConfig] = useState(config);
   const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: chartConfig, type });
   const childs = React.Children.toArray(children);
-
+  useImperativeHandle(ref, () => ({ chart, container: elmRef }), [chart]);
   useEffect(() => setContainer(elmRef.current as string | HTMLDivElement | undefined), [elmRef.current]);
 
   return (
@@ -29,6 +29,6 @@ const Chart: FC<G2ChartProps> = ({ children, config, type, className, style }) =
       })}
     </Fragment>
   );
-}
+})
 
 export default Chart;

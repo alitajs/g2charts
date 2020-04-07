@@ -4,7 +4,7 @@
 Demo:
 
 ```tsx
-import React from 'react';
+import React,{useRef,Fragment} from 'react';
 import {G2Chart,G2Title } from 'g2charts';
 const type = 'Line';
 const data = [
@@ -31,7 +31,15 @@ const configs = {
   xField: 'year',
   yField: 'value',
 }
-export default () => <G2Chart type={type} config={configs}><G2Title text='折线图1'/></G2Chart>;
+export default () => {
+  const elmRef = useRef<HTMLDivElement>(null);
+
+  return (<Fragment><button onClick={()=>{
+       elmRef.current.setTitle({
+          text:'修改后的标题'
+        })
+      }}>修改配置</button><G2Chart type={type} config={configs}><G2Title text='折线图1' ref={elmRef}/></G2Chart></Fragment>)
+  };
 ```
 
 Hooks
@@ -71,13 +79,14 @@ export default () =>  {
   const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: chartConfig, type });
   const titleConfig = {
     // visible: false,
-    // text: '折线图123',
+    text: '折线图123',
   }
-  const {} = useTitle({chart,setChartConfig,...titleConfig})
+  const {title,setTitle} = useTitle({chart,setChartConfig,...titleConfig})
   useEffect(() => setContainer(elmRef.current as string | HTMLDivElement | undefined), [elmRef.current]);
 
   return (
     <Fragment>
+      <button onClick={()=>{setTitle({text:'修改后的标题'})}}>修改配置</button>
       <div ref={elmRef} style={{ fontSize: 1, height: '100%' }} />
     </Fragment>
   );
