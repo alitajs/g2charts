@@ -1,11 +1,11 @@
 
-## Title
+## GuideLine
 
 Demo:
 
 ```tsx
 import React, { useRef, Fragment } from 'react';
-import { G2Chart, G2Title } from 'g2charts';
+import { G2Chart, G2GuideLine } from 'g2charts';
 const type = 'Line';
 const data = [
   { year: '1991', value: 3 },
@@ -27,6 +27,15 @@ const configs = {
     visible: true,
     text: '用平滑的曲线代替折线。',
   },
+  guideLine: [
+    {
+      type: 'mean',
+      lineStyle: {},
+      text: {
+        content:'1232'
+      },
+    },
+  ],
   data,
   xField: 'year',
   yField: 'value',
@@ -37,22 +46,22 @@ export default () => {
 
   return (<Fragment>
     <button onClick={() => {
-      elmRef.current.setTitle({
+      elmRef.current.setGuideLine({
         text: '修改后的标题'
       })
     }}>修改配置</button>
     <G2Chart type={type} config={configs}>
-      <G2Title text='折线图1' ref={elmRef} />
+      <G2GuideLine  ref={elmRef} />
     </G2Chart>
   </Fragment>)
 };
 ```
 
 Hooks
-
+<!--
 ```tsx
 import React, { FC, useRef, useEffect, Fragment, useState } from 'react';
-import { useChart,useTitle } from 'g2charts';
+import { useChart,useGuideLine } from 'g2charts';
 const type = 'Line';
 const data = [
   { year: '1991', value: 3 },
@@ -83,18 +92,18 @@ export default () =>  {
   const elmRef = useRef<HTMLDivElement>(null);
   const [chartConfig, setChartConfig] = useState(configs);
   const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: chartConfig, type });
-  const titleConfig = {
+  const guideLineConfig = {
     // visible: false,
     text: '折线图123',
   }
-  const {title,setTitle} = useTitle({chart,setChartConfig,...titleConfig})
+  const {guideLine,setGuideLine} = useGuideLine({chart,setChartConfig,...guideLineConfig})
   useEffect(() => setContainer(elmRef.current as string | HTMLDivElement | undefined), [elmRef.current]);
 
   return (
     <Fragment>
-      <button onClick={()=>{setTitle({text:'修改后的标题'})}}>修改配置</button>
+      <button onClick={()=>{setGuideLine({text:'修改后的标题'})}}>修改配置</button>
       <div ref={elmRef} style={{ fontSize: 1, height: '100%' }} />
     </Fragment>
   );
 };
-```
+``` -->

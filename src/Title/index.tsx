@@ -1,9 +1,9 @@
 import React, { FC, forwardRef, useImperativeHandle } from 'react';
-import { Label } from '@antv/g2plot';
+import { ITitle } from '@antv/g2plot';
 import { ChartProp } from '../types'
 import useTitle from './useTitle';
 
-export interface TitleProps extends Label {
+export interface TitleProps extends ITitle {
   chart?: ChartProp;
   setChartConfig?: (d: any) => void;
 }

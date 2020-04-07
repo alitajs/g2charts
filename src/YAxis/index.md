@@ -1,11 +1,11 @@
 
-## Title
+## YAxis
 
 Demo:
 
 ```tsx
 import React, { useRef, Fragment } from 'react';
-import { G2Chart, G2Title } from 'g2charts';
+import { G2Chart, G2YAxis } from 'g2charts';
 const type = 'Line';
 const data = [
   { year: '1991', value: 3 },
@@ -30,6 +30,9 @@ const configs = {
   data,
   xField: 'year',
   yField: 'value',
+  yAxis:{
+    type:'time'
+  },
 }
 
 export default () => {
@@ -37,12 +40,12 @@ export default () => {
 
   return (<Fragment>
     <button onClick={() => {
-      elmRef.current.setTitle({
-        text: '修改后的标题'
+      elmRef.current.setYAxis({
+        type:'time'
       })
     }}>修改配置</button>
     <G2Chart type={type} config={configs}>
-      <G2Title text='折线图1' ref={elmRef} />
+      <G2YAxis type='linear' ref={elmRef} />
     </G2Chart>
   </Fragment>)
 };
@@ -52,7 +55,7 @@ Hooks
 
 ```tsx
 import React, { FC, useRef, useEffect, Fragment, useState } from 'react';
-import { useChart,useTitle } from 'g2charts';
+import { useChart,useYAxis } from 'g2charts';
 const type = 'Line';
 const data = [
   { year: '1991', value: 3 },
@@ -77,22 +80,24 @@ const configs = {
   data,
   xField: 'year',
   yField: 'value',
+  yAxis:{
+    type:'time'
+  },
 }
 
 export default () =>  {
   const elmRef = useRef<HTMLDivElement>(null);
   const [chartConfig, setChartConfig] = useState(configs);
   const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: chartConfig, type });
-  const titleConfig = {
-    // visible: false,
-    text: '折线图123',
+  const yAxisConfig = {
+    type:'linear'
   }
-  const {title,setTitle} = useTitle({chart,setChartConfig,...titleConfig})
+  const {yAxis,setYAxis} = useYAxis({chart,setChartConfig,...yAxisConfig})
   useEffect(() => setContainer(elmRef.current as string | HTMLDivElement | undefined), [elmRef.current]);
 
   return (
     <Fragment>
-      <button onClick={()=>{setTitle({text:'修改后的标题'})}}>修改配置</button>
+      <button onClick={()=>{setYAxis({type:'time'})}}>修改配置</button>
       <div ref={elmRef} style={{ fontSize: 1, height: '100%' }} />
     </Fragment>
   );
