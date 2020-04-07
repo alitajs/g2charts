@@ -1,11 +1,11 @@
 
-## Chart
+## Title
 
 Demo:
 
 ```tsx
 import React from 'react';
-import { G2Chart } from 'g2charts';
+import {G2Chart,G2Title } from 'g2charts';
 const type = 'Line';
 const data = [
   { year: '1991', value: 3 },
@@ -31,14 +31,14 @@ const configs = {
   xField: 'year',
   yField: 'value',
 }
-export default () => <G2Chart type={type} config={configs}/>;
+export default () => <G2Chart type={type} config={configs}><G2Title text='折线图1'/></G2Chart>;
 ```
 
 Hooks
 
 ```tsx
 import React, { FC, useRef, useEffect, Fragment, useState } from 'react';
-import { useChart } from 'g2charts';
+import { useChart,useTitle } from 'g2charts';
 const type = 'Line';
 const data = [
   { year: '1991', value: 3 },
@@ -69,23 +69,15 @@ export default () =>  {
   const elmRef = useRef<HTMLDivElement>(null);
   const [chartConfig, setChartConfig] = useState(configs);
   const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: chartConfig, type });
-
+  const titleConfig = {
+    // visible: false,
+    // text: '折线图123',
+  }
+  const {} = useTitle({chart,setChartConfig,...titleConfig})
   useEffect(() => setContainer(elmRef.current as string | HTMLDivElement | undefined), [elmRef.current]);
 
   return (
     <Fragment>
-      <button onClick={()=>{
-        chart.updateConfig({title:{
-          text:'修改后的标题'
-        }})
-        chart.render();
-      }}>修改配置</button>
-      <button onClick={()=>{
-        console.log(chart.getData())
-      }}>获取图表数据</button>
-      <button onClick={()=>{
-        console.log(chart.getPlotTheme())
-      }}>获取图表主题</button>
       <div ref={elmRef} style={{ fontSize: 1, height: '100%' }} />
     </Fragment>
   );
