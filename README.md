@@ -2,28 +2,4 @@
 
 @antv/g2plot for react,support React Hooks.
 
-## Getting Started
-
-Install dependencies,
-
-```bash
-$ npm i
-```
-
-Start the dev server,
-
-```bash
-$ npm start
-```
-
-Build documentation,
-
-```bash
-$ npm run docs:build
-```
-
-Build library via `father-build`,
-
-```bash
-$ npm run build
-```
+与 ant-design-charts 共建，欢迎关注 https://github.com/ant-design/ant-design-charts
