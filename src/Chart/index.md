@@ -47,7 +47,7 @@ export default () => {
   <button onClick={()=>{
         console.log(chartRef.current.chart.getPlotTheme())
       }}>获取图表主题</button>
-  <G2Chart type={type} config={configs} ref={chartRef}/>
+  <G2Chart type={type} {...configs} ref={chartRef}/>
   </Fragment>
 )};
 ```

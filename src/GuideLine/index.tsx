@@ -6,12 +6,15 @@ import useGuideLine from './useGuideLine';
 export interface GuideLineProps extends GuideLineConfig {
   chart?: ChartProp;
   setChartConfig?: (d: any) => void;
+  chartConfig?: Set<object>;
+  hasChartConfig?: (key: object) => boolean;
+  removeChartConfig?: (key: object) => void;
 }
 
-const GuideLine: FC<GuideLineProps> = forwardRef((props, ref) => {
+const Description: FC<GuideLineProps> = forwardRef((props, ref) => {
   const { guideLine, setGuideLine } = useGuideLine(props);
   useImperativeHandle(ref, () => ({ guideLine, setGuideLine }), [guideLine]);
   return null;
 })
 
-export default GuideLine
+export default Description;

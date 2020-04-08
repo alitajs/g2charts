@@ -27,15 +27,6 @@ const configs = {
     visible: true,
     text: '用平滑的曲线代替折线。',
   },
-  guideLine: [
-    {
-      type: 'mean',
-      lineStyle: {},
-      text: {
-        content:'1232'
-      },
-    },
-  ],
   data,
   xField: 'year',
   yField: 'value',
@@ -45,19 +36,15 @@ export default () => {
   const elmRef = useRef<HTMLDivElement>(null);
 
   return (<Fragment>
-    <button onClick={() => {
-      elmRef.current.setGuideLine({
-        text: '修改后的标题'
-      })
-    }}>修改配置</button>
-    <G2Chart type={type} config={configs}>
-      <G2GuideLine  ref={elmRef} />
+    <G2Chart type={type} {...configs}>
+    <G2GuideLine type='mean' text={{content:'1232'}} ref={elmRef} />
+    <G2GuideLine type='max' text={{content:'3333'}}/>
     </G2Chart>
   </Fragment>)
 };
 ```
 
-Hooks
+<!-- Hooks -->
 <!--
 ```tsx
 import React, { FC, useRef, useEffect, Fragment, useState } from 'react';

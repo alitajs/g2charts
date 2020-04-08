@@ -1,47 +1,44 @@
 import { useEffect, useState, useMemo } from 'react';
 import * as G2Plot from '@antv/g2plot';
-import isEqual from 'lodash/isEqual';
-import { G2ChartProps } from './'
+import { PlotConfig } from '@antv/g2plot';
 import { ChartProp } from '../types'
 
-export interface UseChart extends G2ChartProps {
+export interface UseChart {
   /**
   * 指定的容器
   */
   container?: string | HTMLDivElement;
+  type: string;
+  config?: PlotConfig;
 }
 
 export default (props: UseChart) => {
-  const { type, config } = props;
+  const { type, container: propsContainer, config } = props;
   const [chart, setChart] = useState<ChartProp>();
-  const [preConfig, setPreConfig] = useState<ChartProp>(config);
-  const [container, setContainer] = useState(props.container);
+  const [container, setContainer] = useState(propsContainer);
 
   const getType = (a: string): string => {
     return a as string;
   }
-  useMemo(() => {
-    if (container && !chart) {
-      // @ts-ignore
-      const instance = new G2Plot[getType(type)](container, config);
-      setChart(instance);
-    }
-    if (chart && !isEqual(config, preConfig)) {
-      chart.updateConfig(config);
-    }
-    setPreConfig(config);
+  useEffect(() => {
+    if (!container) return () => null;
+    // @ts-ignore
+    const instance = new G2Plot[getType(type)](container, config);
+    setChart(instance);
+    instance.render();
     return () => {
       if (chart && !chart.destroyed) {
         chart.destroy();
       }
     }
-  }, [container, chart, config, type]);
+  }, [type, container]);
 
   useEffect(() => {
     if (chart) {
+      chart.updateConfig(config!);
       chart.render();
     }
-  }, [chart, config])
+  }, [JSON.stringify(config)]);
 
   return {
     chart, setChart,

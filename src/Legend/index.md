@@ -86,7 +86,7 @@ export default () => {
         position: 'top-center',
       })
     }}>修改配置</button>
-    <G2Chart type={type} config={configs}>
+    <G2Chart type={type} {...configs}>
       <G2Legend position='botto-left' ref={elmRef} />
     </G2Chart>
   </Fragment>)
@@ -97,7 +97,9 @@ Hooks
 
 ```tsx
 import React, { FC, useRef, useEffect, Fragment, useState } from 'react';
-import { useChart,useLegend } from 'g2charts';
+import { useChart,useLegend,getChartConfig } from 'g2charts';
+import { useSet } from '@umijs/hooks';
+
 const type = 'Line';
 const data = [
   {
@@ -171,12 +173,12 @@ const configs = {
 
 export default () =>  {
   const elmRef = useRef<HTMLDivElement>(null);
-  const [chartConfig, setChartConfig] = useState(configs);
-  const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: chartConfig, type });
+  const [set, { add, has }] = useSet<object>();
+  const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: getChartConfig(configs,set), type });
   const legendConfig = {
      position:'botto-left'
   }
-  const {legend,setLegend} = useLegend({chart,setChartConfig,...legendConfig})
+  const {legend,setLegend} = useLegend({chart,setChartConfig:add,...legendConfig})
   useEffect(() => setContainer(elmRef.current as string | HTMLDivElement | undefined), [elmRef.current]);
 
   return (

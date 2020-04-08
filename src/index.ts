@@ -4,8 +4,8 @@ export { default as useChart } from './Chart/useChart';
 
 export { default as G2Description } from './Description';
 export { default as useDescription } from './Description/useDescription';
-// export { default as G2GuideLine } from './GuideLine';
-// export { default as useGuideLine } from './GuideLine/useGuideLine';
+export { default as G2GuideLine } from './GuideLine';
+export { default as useGuideLine } from './GuideLine/useGuideLine';
 export { default as G2Label } from './Label';
 export { default as useLabel } from './Label/useLabel';
 export { default as G2Legend } from './Legend';
@@ -18,4 +18,8 @@ export { default as G2XAxis } from './XAxis';
 export { default as useXAxis } from './XAxis/useXAxis';
 export { default as G2YAxis } from './YAxis';
 export { default as useYAxis } from './YAxis/useYAxis';
+import { getChartConfig } from './utils'
+export {
+  getChartConfig
+}
 export * from './types';
