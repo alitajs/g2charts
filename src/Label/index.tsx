@@ -6,6 +6,8 @@ import useLabel from './useLabel';
 export interface LabelProps extends LabelConfig {
   chart?: ChartProp;
   setChartConfig?: (d: any) => void;
+  chartConfig?: Set<object>;
+  hasChartConfig?: (key: object) => boolean;
 }
 
 const Label: FC<LabelProps> = forwardRef((props, ref) => {

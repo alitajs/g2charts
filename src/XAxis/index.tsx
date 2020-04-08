@@ -6,6 +6,8 @@ import useXAxis from './useXAxis';
 export interface XAxisProps extends IBaseAxis {
   chart?: ChartProp;
   setChartConfig?: (d: any) => void;
+  chartConfig?: Set<object>;
+  hasChartConfig?: (key: object) => boolean;
 }
 
 const XAxis: FC<XAxisProps> = forwardRef((props, ref) => {

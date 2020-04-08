@@ -41,7 +41,7 @@ export default () => {
         text: '修改后的标题'
       })
     }}>修改配置</button>
-    <G2Chart type={type} config={configs}>
+    <G2Chart type={type} {...configs}>
       <G2Title text='折线图1' ref={elmRef} />
     </G2Chart>
   </Fragment>)
@@ -52,7 +52,9 @@ Hooks
 
 ```tsx
 import React, { FC, useRef, useEffect, Fragment, useState } from 'react';
-import { useChart,useTitle } from 'g2charts';
+import { useChart,useTitle,getChartConfig } from 'g2charts';
+import { useSet } from '@umijs/hooks';
+
 const type = 'Line';
 const data = [
   { year: '1991', value: 3 },
@@ -81,13 +83,13 @@ const configs = {
 
 export default () =>  {
   const elmRef = useRef<HTMLDivElement>(null);
-  const [chartConfig, setChartConfig] = useState(configs);
-  const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: chartConfig, type });
+  const [set, { add, has }] = useSet<object>();
+  const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: getChartConfig(configs,set), type });
   const titleConfig = {
     // visible: false,
     text: '折线图123',
   }
-  const {title,setTitle} = useTitle({chart,setChartConfig,...titleConfig})
+  const {title,setTitle} = useTitle({chart,setChartConfig:add,...titleConfig})
   useEffect(() => setContainer(elmRef.current as string | HTMLDivElement | undefined), [elmRef.current]);
 
   return (

@@ -6,6 +6,8 @@ import useTitle from './useTitle';
 export interface TitleProps extends ITitle {
   chart?: ChartProp;
   setChartConfig?: (d: any) => void;
+  chartConfig?: Set<object>;
+  hasChartConfig?: (key: object) => boolean;
 }
 
 const Title: FC<TitleProps> = forwardRef((props, ref) => {

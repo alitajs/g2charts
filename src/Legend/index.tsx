@@ -6,6 +6,8 @@ import useLegend from './useLegend';
 export interface LegendProps extends LegendConfig {
   chart?: ChartProp;
   setChartConfig?: (d: any) => void;
+  chartConfig?: Set<object>;
+  hasChartConfig?: (key: object) => boolean;
 }
 
 const Legend: FC<LegendProps> = forwardRef((props, ref) => {

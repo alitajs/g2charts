@@ -46,5 +46,5 @@ const configs = {
   xField: 'year',
   yField: 'value',
 }
-export default () => <G2Chart type={type} config={configs}/>;
+export default () => <G2Chart type={type} {...configs}/>;
 ```

@@ -6,6 +6,8 @@ import useTooltip from './useTooltip';
 export interface TooltipProps extends TooltipConfig {
   chart?: ChartProp;
   setChartConfig?: (d: any) => void;
+  chartConfig?: Set<object>;
+  hasChartConfig?: (key: object) => boolean;
 }
 
 const Tooltip: FC<TooltipProps> = forwardRef((props, ref) => {

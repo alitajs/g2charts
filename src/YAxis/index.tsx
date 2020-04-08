@@ -6,6 +6,8 @@ import useYAxis from './useYAxis';
 export interface YAxisProps extends IBaseAxis {
   chart?: ChartProp;
   setChartConfig?: (d: any) => void;
+  chartConfig?: Set<object>;
+  hasChartConfig?: (key: object) => boolean;
 }
 
 const YAxis: FC<YAxisProps> = forwardRef((props, ref) => {

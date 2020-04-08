@@ -44,7 +44,7 @@ export default () => {
         type:'time'
       })
     }}>修改配置</button>
-    <G2Chart type={type} config={configs}>
+    <G2Chart type={type} {...configs}>
       <G2YAxis type='linear' ref={elmRef} />
     </G2Chart>
   </Fragment>)
@@ -55,7 +55,9 @@ Hooks
 
 ```tsx
 import React, { FC, useRef, useEffect, Fragment, useState } from 'react';
-import { useChart,useYAxis } from 'g2charts';
+import { useChart,useYAxis,getChartConfig } from 'g2charts';
+import { useSet } from '@umijs/hooks';
+
 const type = 'Line';
 const data = [
   { year: '1991', value: 3 },
@@ -87,12 +89,12 @@ const configs = {
 
 export default () =>  {
   const elmRef = useRef<HTMLDivElement>(null);
-  const [chartConfig, setChartConfig] = useState(configs);
-  const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: chartConfig, type });
+  const [set, { add, has }] = useSet<object>();
+  const { chart, setChart, container, setContainer } = useChart({ container: elmRef.current as (string | HTMLDivElement), config: getChartConfig(configs,set), type });
   const yAxisConfig = {
     type:'linear'
   }
-  const {yAxis,setYAxis} = useYAxis({chart,setChartConfig,...yAxisConfig})
+  const {yAxis,setYAxis} = useYAxis({chart,setChartConfig:add,...yAxisConfig})
   useEffect(() => setContainer(elmRef.current as string | HTMLDivElement | undefined), [elmRef.current]);
 
   return (

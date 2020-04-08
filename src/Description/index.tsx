@@ -6,6 +6,8 @@ import useDescription from './useDescription';
 export interface DescriptionProps extends IDescription {
   chart?: ChartProp;
   setChartConfig?: (d: any) => void;
+  chartConfig?: Set<object>;
+  hasChartConfig?: (key: object) => boolean;
 }
 
 const Description: FC<DescriptionProps> = forwardRef((props, ref) => {
